@@ -730,6 +730,7 @@ class ThirdPersonCameraDemo {
     this._Initialize();
   }
   _MaximumNumberOfClusters = 10;
+  _NumberOfCoinsInLevel = 100;
   _CreateLevel1() {
     this._CreateFloor();
     this._CreateTree(300, 300, 50);
@@ -738,6 +739,7 @@ class ThirdPersonCameraDemo {
     this._CreateTree(-800, -800, 50);
     //this._CreateRock(100, 100, 25);
     this._CreateCoin(0, 20);
+    
     var numberOfClusters = Math.floor(Math.random() *  this._MaximumNumberOfClusters);
     for (let i = 0; i < numberOfClusters; i++) 
     {
@@ -753,6 +755,12 @@ class ThirdPersonCameraDemo {
         var rockSize = Math.floor(10 * Math.random());
         this._CreateRock(100 + rockXOffset, 100 - rockYOffset, 25 + rockSize);
     }   
+    for(let i = 0; i < this._NumberOfCoinsInLevel; i++)
+    {
+      var coinXOffset = Math.floor(800 * Math.random());
+      var coinZOffset = Math.floor(800 * Math.random());
+      this._CreateCoin(coinXOffset , coinZOffset);
+    }
   }
   _CreateLevel2() {
     this._CreateFloor();
@@ -947,7 +955,8 @@ class ThirdPersonCameraDemo {
   trunk.position.set(posX, ((characterSize * 1.3 * randomScale)/2) , posZ);
   trunk.scale.x = trunk.scale.y = trunk.scale.z = randomScale;
   this._scene.add( trunk );
- 
+
+
   // Create the trunk outline.
   var outline_geo = new THREE.CylinderGeometry( characterSize/3.5 + outlineSize, characterSize/2.5 + outlineSize, characterSize * 1.3 + outlineSize, 8 );
   var outline_mat = new THREE.MeshBasicMaterial({
@@ -976,6 +985,7 @@ class ThirdPersonCameraDemo {
   });
   var outlineTreeTop = new THREE.Mesh(outline_geo, outline_mat);
   treeTop.add( outlineTreeTop );
+  this._scene.add(new THREE.BoxHelper(trunk, 0x0000ff));
   this._calculateCollisionPoints( trunk );
 }
  
@@ -992,7 +1002,7 @@ _CreateCoin(posX, posZ)
 
       fbx.position.set(posX, 10, posZ)
       this._scene.add(fbx);
-      this._scene.add(new THREE.BoxHelper(fbx, 0x00ff00));
+      this._scene.add(new THREE.BoxHelper(fbx, 0xff00ff));
       this._calculateCollisionPoints( fbx, 'reward' ) 
      
     });
@@ -1048,6 +1058,7 @@ _CreateCoin(posX, posZ)
     });
     var outlineRock = new THREE.Mesh(outline_geo, outline_mat);
     rock.add( outlineRock );
+    this._scene.add(new THREE.BoxHelper(rock, 0xff0000));
     this._calculateCollisionPoints( rock );
 
   }
@@ -1138,3 +1149,4 @@ _TestLerp(0.01, 0.01);
 _TestLerp(1.0 / 100.0, 1.0 / 50.0);
 _TestLerp(1.0 - Math.pow(0.3, 1.0 / 100.0), 
           1.0 - Math.pow(0.3, 1.0 / 50.0));
+

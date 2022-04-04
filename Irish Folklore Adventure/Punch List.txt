@@ -1,0 +1,4 @@
+Make coins spin
+Make character walking forward and backward smoothly
+Remove visual bounding boxes
+Have the score following the character orientation
