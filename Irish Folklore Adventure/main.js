@@ -66,13 +66,13 @@ class BasicCharacterController {
           action: action,
         };
       };
-
+      // Make sure animations are done in place
       const loader = new FBXLoader(this._manager);
       loader.setPath('./resources/Female Warrior/');
-      loader.load('Catwalk Walk Forward.fbx', (a) => { _OnLoad('walk-forward', a); });
-      loader.load('Standing Walk Back.fbx', (a) => { _OnLoad('walk-backward', a); });
-      loader.load('Standing Run Forward.fbx', (a) => { _OnLoad('run-forward', a); });
-      loader.load('Standing Run Back.fbx', (a) => { _OnLoad('run-backward', a); });
+      loader.load('Catwalk Walk Forward-InPlace.fbx', (a) => { _OnLoad('walk-forward', a); });
+      loader.load('Standing Walk Back-InPlace.fbx', (a) => { _OnLoad('walk-backward', a); });
+      loader.load('Standing Run Forward-InPlace.fbx', (a) => { _OnLoad('run-forward', a); });
+      loader.load('Standing Run Back-InPlace.fbx', (a) => { _OnLoad('run-backward', a); });
       loader.load('Catwalk Idle.fbx', (a) => { _OnLoad('idle', a); });
       
     });
