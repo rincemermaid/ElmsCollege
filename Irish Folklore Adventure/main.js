@@ -2,6 +2,8 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.118/build/three.mod
 
 import {FBXLoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/loaders/FBXLoader.js';
 import {GLTFLoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/loaders/GLTFLoader.js';
+// Flag to on/off to show bounding boxes
+const showBoundingBoxes = false;
 
 
 class BasicCharacterControllerProxy {
@@ -46,8 +48,11 @@ class BasicCharacterController {
 
       this._target = fbx;
       this._params.scene.add(this._target);
-      this._characterBBoxHelper = new THREE.BoxHelper(this._target, 0x00ff00);
-      this._params.scene.add(this._characterBBoxHelper);
+      if (showBoundingBoxes == true)
+      {
+        this._characterBBoxHelper = new THREE.BoxHelper(this._target, 0x00ff00);
+        this._params.scene.add(this._characterBBoxHelper);
+      }
       this._characterBBox = new THREE.Box3();
       this._characterBBox.setFromObject(this._target);
       this._mixer = new THREE.AnimationMixer(this._target);
@@ -155,8 +160,10 @@ class BasicCharacterController {
 
     controlObject.position.add(forward);
     controlObject.position.add(sideways);
-
-    this._characterBBoxHelper.update();
+    if (showBoundingBoxes == true)
+    {
+      this._characterBBoxHelper.update();
+    }
     this._characterBBox.setFromObject(controlObject);
 
     
@@ -985,7 +992,10 @@ class ThirdPersonCameraDemo {
   });
   var outlineTreeTop = new THREE.Mesh(outline_geo, outline_mat);
   treeTop.add( outlineTreeTop );
-  this._scene.add(new THREE.BoxHelper(trunk, 0x0000ff));
+  if(showBoundingBoxes == true)
+  {
+    this._scene.add(new THREE.BoxHelper(trunk, 0x0000ff));
+  }
   this._calculateCollisionPoints( trunk );
 }
  
@@ -1002,7 +1012,10 @@ _CreateCoin(posX, posZ)
 
       fbx.position.set(posX, 10, posZ)
       this._scene.add(fbx);
-      this._scene.add(new THREE.BoxHelper(fbx, 0xff00ff));
+      if(showBoundingBoxes == true)
+      {
+        this._scene.add(new THREE.BoxHelper(fbx, 0xff00ff));
+      }
       this._calculateCollisionPoints( fbx, 'reward' ) 
      
     });
@@ -1058,7 +1071,10 @@ _CreateCoin(posX, posZ)
     });
     var outlineRock = new THREE.Mesh(outline_geo, outline_mat);
     rock.add( outlineRock );
-    this._scene.add(new THREE.BoxHelper(rock, 0xff0000));
+    if(showBoundingBoxes == true)
+    {
+      this._scene.add(new THREE.BoxHelper(rock, 0xff0000));
+    }
     this._calculateCollisionPoints( rock );
 
   }
