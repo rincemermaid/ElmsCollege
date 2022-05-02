@@ -213,7 +213,7 @@ class BasicCharacterController {
           var objectCenter = new THREE.Vector3();
           var playerCenter = new THREE.Vector3();
           objectBoundingBox.getCenter(objectCenter);
-          objectBoundingBox.getCenter(playerCenter);
+          this._characterBBox.getCenter(playerCenter);
           // Move the object in the clear. Detect the best direction to move.
           if ( this._characterBBox.min.x <= objectBoundingBox.max.x && this._characterBBox.max.x >= objectBoundingBox.min.x ) 
           {
@@ -753,7 +753,7 @@ class ThirdPersonCameraDemo {
     this._CreateTree(800, -300, 50);
     this._CreateTree(-300, 800, 50);
     this._CreateTree(-800, -800, 50);
-    //this._CreateRock(100, 100, 25);
+    this._CreateRock(200, 200, 25);
     this._CreateCoin(0, 20);
     
     var numberOfClusters = Math.floor(Math.random() *  this._MaximumNumberOfClusters);
