@@ -171,13 +171,22 @@ class BasicCharacterController {
 
     this._position.copy(controlObject.position);
     
-    this._params.scoreText.position.set(this._position.x + 0, this._position.y + 45, this._position.z + 50);
+    this._UpdateScorePosition(controlObject);
 
     if (this._mixer) {
       this._mixer.update(timeInSeconds);
     }
   }
-  
+ // Update score position
+  _UpdateScorePosition(characterController)
+  {
+    const idealScorePosition = new THREE.Vector3(0,30,10);
+    idealScorePosition.applyQuaternion(characterController.quaternion);
+    idealScorePosition.add(characterController.position);
+    // Apply to Score Text
+    this._params.scoreText.position.set(idealScorePosition.x, idealScorePosition.y, idealScorePosition.z);
+    this._params.scoreText.quaternion.copy(characterController.quaternion);
+  }
   /**
  * Collision detection for every solid object.
  */
